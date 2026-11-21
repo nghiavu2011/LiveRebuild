@@ -1,13 +1,9 @@
 {
-  "name": "cursor-craft",
-  "version": "1.1.0",
-  "description": "Live swarm cursor webpage rebuilder for Firefox and Chromium browsers",
+  "name": "liverebuild-by-nmstudio",
+  "version": "1.2.0",
+  "description": "LiveRebuild by NMstudio - Live swarm cursor webpage rebuilder for Coc Coc, Chrome, Edge, and Firefox",
+  "author": "NMstudio",
   "scripts": {
-    "lint": "web-ext lint --source-dir src",
-    "build": "web-ext build --source-dir src --artifacts-dir dist --overwrite-dest",
-    "package": "./scripts/package.sh"
-  },
-  "devDependencies": {
-    "web-ext": "^8.4.0"
+    "build": "python build-multi-browser.py"
   }
 }

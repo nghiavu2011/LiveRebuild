@@ -1,4 +1,4 @@
-// CursorCraft: Live Swarm Rebuild for Firefox & Chromium browsers
+// LiveRebuild by NMstudio (Swarm Webpage Rebuilder)
 // Clicking the toolbar icon (or Alt+Shift+S) injects the swarm into the active tab.
 // Injecting again while it is running toggles it off.
 
@@ -66,11 +66,11 @@ async function rebuild(tab) {
     try {
       await api.action.setBadgeBackgroundColor({ tabId: tab.id, color: "#F24822" });
       await api.action.setBadgeText({ tabId: tab.id, text: "×" });
-      await api.action.setTitle({ tabId: tab.id, title: "CursorCraft can't run on this page" });
+      await api.action.setTitle({ tabId: tab.id, title: "LiveRebuild không thể chạy trên trang này" });
       setTimeout(async () => {
         try {
           await api.action.setBadgeText({ tabId: tab.id, text: "" });
-          await api.action.setTitle({ tabId: tab.id, title: "CursorCraft (Alt+Shift+S)" });
+          await api.action.setTitle({ tabId: tab.id, title: "LiveRebuild by NMstudio (Alt+Shift+S)" });
         } catch (_) {}
       }, 2500);
     } catch (_) {}

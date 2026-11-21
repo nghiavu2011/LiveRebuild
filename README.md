@@ -1,91 +1,138 @@
-# CursorCraft
+# LiveRebuild by NMstudio ⚡
 
-A Firefox extension that wipes any web page to a blank canvas and lets a swarm of multiplayer cursors build it back, live: crosshair-drawn boxes, typed text, pen-tool lines, ruler guides and ⌥-drag duplicates, until the page looks just like it did before.
+<p align="center">
+  <img src="media/demo.gif" alt="LiveRebuild by NMstudio Demo" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" />
+</p>
 
-![CursorCraft rebuilding a page](media/demo.gif)
+<p align="center">
+  <b>Biến bất kỳ trang web nào thành canvas trống và chiêm ngưỡng đàn con trỏ chuột đa tác vụ tái lập lại toàn bộ giao diện trực tiếp trước mắt bạn!</b>
+</p>
 
-[Install on Firefox](https://addons.mozilla.org/en-US/firefox/addon/cursorcraft-live-swarm-rebuild/) · [Full demo video (36s)](media/demo.mp4) · [Demo with sound (60s)](media/demo-with-sound.mp4)
+<p align="center">
+  <a href="media/demo-liverebuild-14s.mp4">▶️ <b>Xem Clip Demo Tái Tạo Trang 14s (MP4)</b></a> · 
+  <a href="media/demo-with-sound.mp4">🔊 <b>Xem Video Có Âm Thanh Phím Cơ (60s)</b></a>
+</p>
 
-## Credit
+<p align="center">
+  <img src="https://img.shields.io/badge/Version-1.2.0-emerald?style=flat-square" alt="Version" />
+  <img src="https://img.shields.io/badge/Author-NMstudio-10b981?style=flat-square" alt="Author" />
+  <img src="https://img.shields.io/badge/Platform-Cốc_Cốc_|_Chrome_|_Edge_|_Firefox_|_Brave_|_Opera-0ea5e9?style=flat-square" alt="Platform" />
+  <img src="https://img.shields.io/badge/Privacy-100%25_Offline_|_No_Tracking-success?style=flat-square" alt="Privacy" />
+</p>
 
-This is an unofficial Firefox port and tribute to **[Swarm](https://califa.github.io/swarm-site/)** by **[Joel Califa](https://joelcalifa.com)** ([@califa](https://github.com/califa), [source](https://github.com/califa/swarm-site)) and the Chromium extension **[Swarm Rebuild](https://github.com/DhvanilPatel/swarm-cursors)** by **[Dhvanil Patel](https://github.com/DhvanilPatel)**.
+---
 
-The motion design is Joel Califa's: the cursor set, the swarm and flocking physics, the build choreography (rects, typing, guides, duplicates), the rulers and the overall look. Dhvanil Patel adapted it into a Chrome extension to snapshot live DOM trees with synthesized audio. What this project adds is porting it to Firefox and Gecko-based browsers (Zen Browser, LibreWolf, Floorp), adapting it to Firefox's Manifest V3 architecture, and fixing Gecko sub-pixel text and SVG jitter during scrolling.
+## 🌟 Những Điểm Đột Phá Trên Bản LiveRebuild (NMstudio Edition)
 
-Go look at the originals. They are better than this.
+### 1. 🍏 Con Trỏ Chuột Leader Cốc Cốc Siêu To Bản
+- Con trỏ số 1 luôn đảm nhiệm vai trò **Leader Tổng Chỉ Huy** với kích thước mũi tên phóng to **$1.55\times$** (to nhất đàn).
+- Mang màu xanh lá thương hiệu Cốc Cốc (`#00b14f`) với vầng hào quang phát sáng `glow drop-shadow`.
+- Gắn kèm bảng tên phi hành đoàn phong cách Figma: **`Cốc Cốc Leader • NMstudio`**.
+- Không bao giờ bị biến mất (chống idle leave), luôn dẫn dắt phi hành đoàn thi công từ đầu tới cuối.
 
-## Install
+### 2. 🎧 Âm Thanh Phím Cơ "Creamy Thock" (ASMR)
+- Tinh chỉnh thuật toán tổng hợp âm thanh thực qua *Web Audio API* (không cần nạp file mp3 nặng nề).
+- Dải tần âm thanh trầm ấm $240–520\text{Hz}$ kết hợp độ vang cộng hưởng đá cẩm thạch $140–220\text{Hz}$, mang lại cảm giác gõ phím cơ bôi dầu (lubed mechanical switch) êm ái, thư giãn và cực kỳ "chill".
 
-### Firefox Add-ons (Recommended)
+### 3. ✨ Hiệu Ứng Bụi Sao (Micro-Confetti & Sparkles)
+- Mỗi khi đàn chuột vẽ xong một khối thẻ (Card), khung ảnh hay đoạn văn bản, một chùm 6–8 hạt sao lấp lánh sẽ nổ bung nhẹ nhàng và tan biến trong 0.5s, tạo cảm giác hoàn thành nhiệm vụ cực kỳ mãn nhãn.
 
-Install directly from **[addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/cursorcraft-live-swarm-rebuild/)**.
+### 4. 💬 Bong Bóng Thoại Hóm Hỉnh (Cursor Banter)
+- Cứ mỗi 4 giây, Leader hoặc một thành viên trong đàn chuột sẽ bắn ra những câu thoại hoạt hình ngắn vui nhộn:
+  - *"Sếp ơi banner này nét căng! ✨"*
+  - *"Căn giữa div này mệt ghê... 😅"*
+  - *"CSS chuẩn đét từng pixel! 📐"*
+  - *"Chạy deadline cùng NMstudio! 🚀"*
+  - *"Leader Cốc Cốc đang dẫn đoàn! 🍏"*
 
-### Local Development
+### 5. 🎥 Nút 1-Click Quay Clip TikTok / Reels (`🎥 Quay clip`)
+- Tích hợp trực tiếp trên thanh điều khiển HUD dưới đáy màn hình.
+- Sử dụng native `MediaRecorder API` quay lại toàn bộ quá trình tái tạo với độ phân giải cao $60\text{fps}$. Khi hoàn tất hoặc bấm dừng, video clip định dạng `.webm` sắc nét sẽ tự động tải về máy để bạn đăng ngay lên TikTok / Reels / Shorts mà không cần cài OBS!
 
-To run the extension locally:
+### 6. 🎆 Màn Kết Grand Finale Rực Rỡ
+- Khi hoàn tất việc xây dựng trang web, trung tâm màn hình sẽ bừng sáng với huy hiệu:
+  **`⚡ NMstudio — KIẾN TẠO HOÀN TẤT`**
+  kèm theo màn pháo hoa Confetti rực rỡ và hợp âm E major ngân vang trước khi trở lại trang web tương tác thật.
 
-1. Clone or download this repo.
-2. Open `about:debugging#/runtime/this-firefox` in Firefox or Zen Browser.
-3. Click **Load Temporary Add-on...** and choose the [`src/manifest.json`](src/manifest.json) file.
-4. Pin it to your toolbar.
+### 7. 🇻🇳 Việt Hóa 100% Giao Diện & Điều Khiển
+- Toàn bộ thanh HUD, thanh tiến độ và tooltip đều được Việt hóa chuẩn mực:
+  `Dạo quanh (Tour)`, `Tốc độ (1×, 2×, 3×)`, `Âm thanh (M)`, `Quay clip`, `Trở lại trang`, `Tái lập lại`.
 
-## Use
+### 8. 🛡️ Bảo Mật Tuyệt Đối & Lọc Rác DOM Cốc Cốc
+- **100% Offline**: 0 kết nối mạng, 0 theo dõi, 0 thu thập dữ liệu cá nhân.
+- Tự động bỏ qua các overlay và thanh tải video của Cốc Cốc (`coccoc-video-downloader`, `coccoc-sidebar`, `coccoc-download-bar`) để đàn chuột không vẽ nhầm giao diện trình duyệt.
 
-- Click the toolbar icon or press **Alt+Shift+S** on any page (shortcuts can be customized in `about:addons` → gear icon → **Manage Extension Shortcuts**).
-- The page fades out and the cursors orbit the site's favicon, then fan out and start building.
-- **Scroll** and the swarm chases you, with more agents joining the faster you go.
-- **Tour** auto-scrolls at the pace the swarm can keep up with. Good for screen recordings.
-- **1× / 2× / 3×** changes build speed.
-- **Sound** is on by default (speaker icon in the toolbar, or press **M**). If the page hasn't been clicked yet, the browser keeps audio locked and the button says **Tap for sound**; one click anywhere starts it.
-- When it's done, the cursors flock to your mouse. **Go live** fades back to the real, clickable page; **Replay** builds it again.
-- **Esc**, **X**, or clicking the icon again exits at any time.
+---
 
-There's a self-contained test page in [`demo/index.html`](demo/index.html) (an inner-scrolling app shell with floats, forms, cards and media). Opening local files needs permission to access file URLs enabled for the extension.
+## 🚀 Hướng Dẫn Cài Đặt Chi Tiết
 
-## How it works
+### Bước 1: Tải mã nguồn
+Clone repo này về máy của bạn:
+```bash
+git clone https://github.com/nghiavu2011/LiveRebuild.git
+```
 
-1. **Snapshot.** [`src/swarm.js`](src/swarm.js) walks the live DOM, including open shadow roots, and turns it into a blueprint:
-   - boxes with fills, borders, radii, shadows, gradients, masks and backdrop blur → **rects**
-   - text blocks → **text layers**, cloned with their computed styles (fonts, links, inline code, icons, `::before`/`::after`)
-   - single-side borders and `<hr>` → **pen-tool lines**
-   - `<img>`, `<picture>`, `<svg>`, `<video>`, `<canvas>`, iframes → **media**. WebGL canvases, playing video and cross-origin iframes are cropped from a screenshot taken at click time while only those elements are visible.
-   - repeated siblings (nav links, cards, list rows, logos) → one **master** plus **duplicates**
-   - shared left edges and baselines → **ruler guides** that text snaps to
-2. **Blank.** A full-viewport layer, isolated from the page's CSS in a shadow root, covers the page with its own background color. A quick hidden scroll pass first triggers lazy images and reveal-on-scroll content.
-3. **Rebuild.** Each cursor runs a small generator script per task. Tasks unlock top-down as you scroll, children wait for their parent box, and duplicates wait for their master:
-   - **rect / media:** crosshair drag with a live `W × H` badge and a gray placeholder, then the real fill fades in (images sweep top to bottom)
-   - **text:** drag a text box, type with an I-beam and a blinking caret; big headings start at 18px and step up
-   - **lines:** pen tool, anchor points, rubber band to the cursor
-   - **guides:** Figma-style rulers slide in, a red guide is dragged out, and text snaps onto it
-   - **duplicates:** select the master, ⌥-drag a copy with red spacing measurements, then retype its text, swap its image or restyle it
-   - **swarm physics:** orbiting, alignment and mouse-avoiding flocking for the intro and the finale
-4. **Sound.** Synthesized live with the Web Audio API (no audio files), mostly clicky, a little musical:
-   - typing is a mechanical keyboard (a sharp click over a short thock, deeper on spaces), and every mouse press is a press-and-release click
-   - guides snap with a crisp click, and growing headings tick up in pitch
-   - boxes, images and duplicates add a sparse, quiet glass-piano note from the E major pentatonic, on an eighth-note grid: big sections play low, small things high, pitch rises left to right, and every sound is panned to its cursor
-   - an airy swell as the page dissolves, a short arpeggio as the swarm fans out, a soft E major chord when the page is done, and a falling sweep for Go live
+### Bước 2: Cài đặt vào Trình Duyệt
 
-### Files
+#### 🍏 1. Dành cho Trình duyệt Cốc Cốc
+1. Mở Cốc Cốc và truy cập: `coccoc://extensions`
+2. Bật công tắc **"Chế độ dành cho nhà phát triển"** (ở góc trên cùng bên phải).
+3. Nhấp vào nút **"Tải tiện ích đã giải nén"** (*Load unpacked*).
+4. Chọn thư mục:
+   ```text
+   LiveRebuild/dist/coccoc-extension
+   ```
+5. Mở bất kỳ trang web nào (ví dụ: [vnexpress.net](https://vnexpress.net) hoặc file test [demo/index.html](demo/index.html)), nhấn **`Alt + Shift + S`** (hoặc bấm vào icon mảnh ghép trên thanh công cụ) để trải nghiệm!
 
-| Path | What it is |
-| --- | --- |
-| `src/manifest.json` | Manifest V3; permissions are `activeTab` and `scripting` only |
-| `src/background.js` | Toolbar click → media-only screenshot → inject `swarm.js` (or toggle off) |
-| `src/swarm.js` | Snapshot, renderer and swarm engine (one dependency-free content script) |
-| `demo/index.html` | Edge-case test page |
-| `scripts/package.sh` | Builds the zip and xpi to upload to Firefox Add-ons |
+#### 🔵 2. Dành cho Google Chrome / Microsoft Edge / Brave / Opera
+1. Mở trang quản lý tiện ích:
+   - Chrome: `chrome://extensions`
+   - Edge: `edge://extensions`
+   - Brave: `brave://extensions`
+   - Opera: `opera://extensions`
+2. Bật **Developer Mode** $\rightarrow$ Chọn **Load unpacked**.
+3. Chọn thư mục tương ứng trong thư mục `dist/` (ví dụ: `dist/chrome-extension` hoặc `dist/edge-extension`).
 
-## Limits
+#### 🦊 3. Dành cho Mozilla Firefox
+1. Mở Firefox và truy cập: `about:debugging#/runtime/this-firefox`
+2. Bấm nút **"Load Temporary Add-on..."**
+3. Chọn file `dist/liverebuild-firefox-nmstudio.zip` (hoặc `dist/firefox-extension/manifest.json`).
 
-- Firefox doesn't let extensions run on `about:` pages, the Add-ons site or the PDF viewer. The icon shows a red X there.
-- It's a visual rebuild, not a clone. Animations freeze at the moment you click, decorative pseudo-elements are skipped when their position can't be worked out, and canvases, videos and iframes below the first screen become placeholders.
-- Web components are rebuilt as plain styled elements, so none of the page's scripts run inside the swarm's layer.
-- Very long pages are capped at about 4,000 layers / 40,000px.
+---
 
-## Firefox Add-on & Packaging
+## 🎮 Hướng Dẫn Sử Dụng & Phím Tắt
 
-CursorCraft is available on the [Firefox Add-on Store](https://addons.mozilla.org/en-US/firefox/addon/cursorcraft-live-swarm-rebuild/). To build the release packages locally, `./scripts/package.sh` writes `dist/cursor-craft-<version>.zip` and `.xpi`. The privacy policy is [`PRIVACY.md`](PRIVACY.md).
+- **Kích hoạt / Tắt**: Nhấn **`Alt + Shift + S`** (hoặc click icon trên thanh công cụ).
+- **Phím `M`**: Bật / Tắt âm thanh bàn phím cơ.
+- **Phím `Esc`**: Thoát ngay lập tức trở lại trang web ban đầu.
+- **Dạo quanh (Tour)**: Tự động cuộn trang mượt mà theo tiến độ làm việc của đàn chuột (thích hợp khi quay video màn hình).
+- **1× / 2× / 3×**: Điều chỉnh tốc độ thi công của đàn chuột.
+- **🎥 Quay clip**: Bắt đầu ghi hình màn hình chất lượng cao để xuất file video clip đăng mạng xã hội.
+- **Trở lại trang (Go live)**: Trả lại toàn bộ tính năng click và tương tác cho trang web thật sau khi hoàn tất.
 
-## Status & License
+---
 
-This is an open-source port published with permission from the original authors ([Joel Califa](https://joelcalifa.com) and [Dhvanil Patel](https://github.com/DhvanilPatel)).
+## 🛠️ Đóng Gói Lại (Build Pipeline)
+
+Nếu bạn có chỉnh sửa mã nguồn, chỉ cần chạy một lệnh Python duy nhất để build tự động toàn bộ các gói cho mọi trình duyệt:
+```bash
+python build-multi-browser.py
+```
+Tất cả các bản build đã giải nén và file nén `.zip` / `.xpi` sẽ được xuất vào thư mục `dist/`.
+
+---
+
+## 👏 Ghi Công & Tác Quyền (Credits & Acknowledgements)
+
+Dự án **LiveRebuild by NMstudio** được phát triển, bản địa hóa và tối ưu hóa bởi **NMstudio** (`nghiavu2011`), kế thừa và lấy cảm hứng từ những công trình sáng tạo tuyệt vời của cộng đồng mã nguồn mở:
+- **[Joel Califa](https://joelcalifa.com)** ([@califa](https://github.com/califa)) — Tác giả nguyên bản của **[Swarm](https://califa.github.io/swarm-site/)**: Thiết kế chuyển động, cơ chế bầy đàn boids, tọa độ vector con trỏ và nghệ thuật thị giác.
+- **[Dhvanil Patel](https://github.com/DhvanilPatel)** — Tác giả bản Chrome extension ban đầu (**[swarm-cursors](https://github.com/DhvanilPatel/swarm-cursors)**).
+- **[S488U](https://github.com/S488U)** — Tác giả bản port Firefox (**[cursor-craft](https://github.com/S488U/cursor-craft)**).
+
+---
+
+## 📄 Bản Quyền (License)
+
+Dự án được bảo tồn và chia sẻ công khai nhằm mục đích học tập, nghiên cứu và tôn vinh nghệ thuật lập trình sáng tạo.
+
+**Phát triển và duy trì bởi NMstudio (2026)**.

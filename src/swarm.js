@@ -19,6 +19,79 @@
 
   // ---------------------------------------------------------------- constants
 
+  const BROWSER_THEMES = {
+    coccoc: {
+      id: "coccoc",
+      name: "Cốc Cốc Leader • NMstudio",
+      short: "Cốc Cốc",
+      color: "#00b14f",
+      scale: 1.55,
+      glow: "rgba(0, 177, 79, 0.6)",
+    },
+    chrome: {
+      id: "chrome",
+      name: "Chrome Leader • NMstudio",
+      short: "Chrome",
+      color: "#1a73e8",
+      scale: 1.55,
+      glow: "rgba(26, 115, 232, 0.6)",
+    },
+    edge: {
+      id: "edge",
+      name: "Edge Leader • NMstudio",
+      short: "Edge",
+      color: "#0078d4",
+      scale: 1.55,
+      glow: "rgba(0, 120, 212, 0.6)",
+    },
+    opera: {
+      id: "opera",
+      name: "Opera Leader • NMstudio",
+      short: "Opera",
+      color: "#ff1b2d",
+      scale: 1.55,
+      glow: "rgba(255, 27, 45, 0.6)",
+    },
+    brave: {
+      id: "brave",
+      name: "Brave Leader • NMstudio",
+      short: "Brave",
+      color: "#fb542b",
+      scale: 1.55,
+      glow: "rgba(251, 84, 43, 0.6)",
+    },
+    firefox: {
+      id: "firefox",
+      name: "Firefox Leader • NMstudio",
+      short: "Firefox",
+      color: "#ff7139",
+      scale: 1.55,
+      glow: "rgba(255, 113, 57, 0.6)",
+    },
+    generic: {
+      id: "generic",
+      name: "NMstudio Leader",
+      short: "Leader",
+      color: "#10b981",
+      scale: 1.55,
+      glow: "rgba(16, 185, 129, 0.6)",
+    },
+  };
+
+  function detectCurrentBrowser() {
+    if (typeof window !== "undefined" && window.__swarmBrowserTheme && BROWSER_THEMES[window.__swarmBrowserTheme]) {
+      return BROWSER_THEMES[window.__swarmBrowserTheme];
+    }
+    const ua = (typeof navigator !== "undefined" && navigator.userAgent) || "";
+    if (/coc_coc|coccoc/i.test(ua)) return BROWSER_THEMES.coccoc;
+    if (/edg\//i.test(ua)) return BROWSER_THEMES.edge;
+    if (/opr\/|opera/i.test(ua)) return BROWSER_THEMES.opera;
+    if (/brave/i.test(ua) || (typeof navigator !== "undefined" && navigator.brave && typeof navigator.brave.isBrave === "function")) return BROWSER_THEMES.brave;
+    if (/firefox|fxios/i.test(ua)) return BROWSER_THEMES.firefox;
+    if (/chrome|crios/i.test(ua)) return BROWSER_THEMES.chrome;
+    return BROWSER_THEMES.coccoc;
+  }
+
   const NAMES = [
     "Ada", "Linus", "Grace", "Alan", "Margaret", "Ken", "Barbara", "Dennis",
     "Radia", "Guido", "Frances", "Bjarne", "Hedy", "Tim", "Katherine", "Edsger",
@@ -50,6 +123,7 @@
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r()));
   const f1 = (n) => Math.round(n * 10) / 10;
+  const escapeHTML = (s) => (s ? String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;") : "");
 
   function alphaOf(c) {
     if (!c || c === "transparent") return 0;
@@ -146,6 +220,7 @@
   // ------------------------------------------------------------------ capture
 
   const SKIP = new Set([
+    "coccoc-sidebar", "coccoc-download-bar", "coccoc-video-downloader",
     "script", "style", "noscript", "template", "head", "meta", "link", "title",
     "base", "datalist", "area", "map", "source", "track", "param", "swarm-rebuild",
   ]);
@@ -1034,7 +1109,7 @@
     function walk(el, ctx, parent) {
       if (items.length >= MAX_ITEMS) return;
       const tag = el.localName;
-      if (SKIP.has(tag) || el === env.host) return;
+      if (SKIP.has(tag) || el === env.host || tag.startsWith("coccoc-") || (el.id && el.id.includes("coccoc")) || tag.startsWith("grammarly-") || tag.startsWith("translate-") || (el.id && el.id.includes("goog-gt-"))) return;
       const cs = css(el);
       const disp = cs.display;
       if (disp === "none") return;
@@ -1573,6 +1648,19 @@
 .badge{position:absolute;transform:translate(-50%);padding:1px 4px;border-radius:2px;color:#fff;font:600 11px/16px Inter,system-ui,-apple-system,"Segoe UI",sans-serif;white-space:nowrap;font-variant-numeric:tabular-nums}
 .cursor{position:absolute;left:0;top:0;will-change:transform;backface-visibility:hidden}
 .cursor svg{position:absolute;overflow:visible;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.28))}
+.cursor.leader svg{filter:drop-shadow(0 2px 5px rgba(0,0,0,.35)) drop-shadow(0 0 8px var(--leader-glow,rgba(0,177,79,.6)))}
+.cursor .leader-badge{position:absolute;left:22px;top:18px;background:var(--leader-color,#00b14f);color:#fff;font:700 11px/14px Inter,system-ui,sans-serif;padding:3px 8px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.38);letter-spacing:0.02em;pointer-events:none;border:1px solid rgba(255,255,255,0.4);animation:leaderpulse 2.5s infinite ease-in-out}
+@keyframes leaderpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.cursor-bubble{position:absolute;bottom:26px;left:14px;background:rgba(20,20,24,.92);color:#fff;font:600 11px/14px Inter,system-ui,sans-serif;padding:4px 8px;border-radius:8px 8px 8px 2px;border:1px solid rgba(255,255,255,.18);box-shadow:0 4px 12px rgba(0,0,0,.45);white-space:nowrap;pointer-events:none;z-index:20;animation:bubble-pop 2.2s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes bubble-pop{0%{opacity:0;transform:translateY(6px) scale(.85)}15%,80%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-8px) scale(.9)}}
+.sparks{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:4}
+.sparkle{position:absolute;width:5px;height:5px;border-radius:50%;pointer-events:none;animation:spark-fly .55s ease-out forwards}
+@keyframes spark-fly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+.grand-finale{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.85);opacity:0;display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 28px;background:rgba(18,18,22,.94);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(16,185,129,.45);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.55),0 0 35px rgba(16,185,129,.25);pointer-events:none;z-index:100;transition:opacity .5s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+.grand-finale.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.grand-finale .fn-brand{font:800 24px/1.2 Inter,system-ui,sans-serif;letter-spacing:-.02em;background:linear-gradient(135deg,#10b981 0%,#34d399 50%,#6ee7b7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:flex;align-items:center;gap:8px}
+.grand-finale .fn-sub{font:600 12px/1.4 Inter,system-ui,sans-serif;color:#d1d5db;letter-spacing:.05em;text-transform:uppercase}
+.hud .nm-brand{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px;font:700 11px/14px Inter,system-ui,sans-serif;color:#10b981;background:rgba(16,185,129,0.14);border:1px solid rgba(16,185,129,0.3);margin-right:2px;letter-spacing:0.02em;cursor:default}
 .rulers{position:absolute;inset:0;pointer-events:none}
 .ruler{position:absolute;background:#2c2c2c;pointer-events:none}
 .ruler svg{display:block}
@@ -1606,6 +1694,10 @@
 .hud button.snd.off{color:#8a8a8a}
 .hud button.snd.tap{background:#0D99FF;animation:hudpulse 1.6s ease-in-out infinite}
 @keyframes hudpulse{50%{box-shadow:0 0 0 4px rgba(13,153,255,.28)}}
+.hud button.rec{display:flex;align-items:center;gap:6px;background:#2a2a2e}
+.hud button.rec:hover{background:#38383e}
+.hud button.rec.recording{background:#dc2626!important;color:#fff!important;animation:recpulse 1.4s infinite ease-in-out}
+@keyframes recpulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.6)}50%{box-shadow:0 0 0 6px rgba(220,38,38,0)}}
 `;
 
   // -------------------------------------------------------------------- env
@@ -1699,18 +1791,22 @@
 <div class="intro"></div>
 <svg class="ov"></svg>
 <div class="badges"></div>
+<div class="sparks"></div>
 <div class="cursors"></div>
 <div class="rulers"></div>
+<div class="grand-finale"></div>
 <div class="hud">
+  <span class="nm-brand">⚡ NMstudio</span>
   <div class="dots"></div>
-  <div class="txt"><span class="status">Scanning page…</span></div>
+  <div class="txt"><span class="status">Đang quét trang web…</span></div>
   <div class="bar"><i></i></div>
-  <button data-a="tour" title="Auto-scroll while the swarm builds">Tour</button>
-  <button data-a="speed" title="Build speed">1×</button>
-  <button data-a="sound" class="snd" title="Sound (M)"></button>
-  <button data-a="live" class="pri" hidden title="Fade back to the real page">Go live</button>
-  <button data-a="replay" hidden title="Wipe and rebuild again">Replay</button>
-  <button data-a="close" class="x" title="Exit (Esc)">✕</button>
+  <button data-a="tour" title="Tự động cuộn trang theo tiến độ vẽ">Dạo quanh</button>
+  <button data-a="speed" title="Tốc độ tái lập (1×, 2×, 3×)">1×</button>
+  <button data-a="sound" class="snd" title="Âm thanh bàn phím cơ (Phím M)"></button>
+  <button data-a="record" class="rec" title="Quay video màn hình chất lượng cao để đăng Reels / TikTok">🎥 Quay clip</button>
+  <button data-a="live" class="pri" hidden title="Trở lại trang web thực tế đầy đủ tính năng">Trở lại trang</button>
+  <button data-a="replay" hidden title="Xóa trắng và tái lập lại từ đầu">Tái lập lại</button>
+  <button data-a="close" class="x" title="Thoát (Phím Esc)">✕</button>
 </div>`;
       const $ = (s) => root.querySelector(s);
       this.bg = $(".bg");
@@ -1721,6 +1817,8 @@
       this.intro = $(".intro");
       this.ov = $(".ov");
       this.badges = $(".badges");
+      this.sparks = $(".sparks");
+      this.grandFinale = $(".grand-finale");
       this.cursorsEl = $(".cursors");
       this.rulers = $(".rulers");
       this.hud = $(".hud");
@@ -1767,6 +1865,33 @@
       img.onerror = mono;
       img.src = href;
       this.intro.appendChild(img);
+    }
+
+    spawnSparks(x, y, color = "#FFD700", count = 8) {
+      const sparksEl = this.sparks;
+      if (!sparksEl || sparksEl.childElementCount > 36) return;
+      const vp = this.vp;
+      const sx = x - vp.sx + vp.ox;
+      const sy = y - vp.sy + vp.oy;
+      if (sx < -20 || sy < -20 || sx > this.W + 20 || sy > this.H + 20) return;
+      const colors = [color, "#FFD700", "#10b981", "#0D99FF", "#FF7262", "#FFFFFF"];
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement("div");
+        dot.className = "sparkle";
+        const angle = (Math.PI * 2 * i) / count + rand(-0.3, 0.3);
+        const dist = rand(16, 42);
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist;
+        const c = colors[i % colors.length];
+        dot.style.setProperty("--dx", `${dx.toFixed(1)}px`);
+        dot.style.setProperty("--dy", `${dy.toFixed(1)}px`);
+        dot.style.left = `${sx.toFixed(1)}px`;
+        dot.style.top = `${sy.toFixed(1)}px`;
+        dot.style.background = c;
+        dot.style.boxShadow = `0 0 5px ${c}`;
+        sparksEl.appendChild(dot);
+        setTimeout(() => dot.remove(), 550);
+      }
     }
 
     measure() {
@@ -1990,8 +2115,14 @@
         let el = this.cursorEls.get(c.id);
         if (!el) {
           el = document.createElement("div");
-          el.className = "cursor";
-          el.innerHTML = '<svg width="28" height="28" viewBox="0 0 28 28"></svg>';
+          el.className = "cursor" + (c.isLeader ? " leader" : "");
+          let inner = '<svg width="28" height="28" viewBox="0 0 28 28"></svg>';
+          if (c.isLeader) {
+            el.style.setProperty("--leader-color", c.color);
+            el.style.setProperty("--leader-glow", (E.browserTheme && E.browserTheme.glow) || c.color);
+            inner += `<div class="leader-badge">${escapeHTML(c.name)}</div>`;
+          }
+          el.innerHTML = inner;
           this.cursorsEl.appendChild(el);
           this.cursorEls.set(c.id, el);
           el._shape = "";
@@ -2009,7 +2140,7 @@
           el._hy = hy;
           svg.style.transformOrigin = `${hx}px ${hy}px`;
         }
-        const s = 1 - c.press * 0.12;
+        const s = (1 - c.press * 0.12) * (c.scale || 1);
         svg.style.transform = `translate(${-el._hx}px,${-el._hy}px) rotate(${f1(c.angle)}deg) scale(${s})`;
       }
       for (const [id, el] of this.cursorEls)
@@ -2173,6 +2304,7 @@
       this.groups = [];
       this.guides = [];
       this.editLines = new Set();
+      this.browserTheme = detectCurrentBrowser();
       this.cursors = [];
       this.started = false;
       this.ready = false;
@@ -2196,7 +2328,8 @@
       for (let n = 0; n < INTRO_AGENTS; n++) {
         const side = n % 2 === 0;
         const p = this.fromViewport(side ? vp.ox - 40 - rand(0, 200) : vp.ox + vp.vw + 40 + rand(0, 200), vp.oy + rand(0.05, 0.95) * vp.vh);
-        const c = this.makeCursor(p.x, p.y, n < MIN_AGENTS);
+        const isLeader = (n === 0);
+        const c = this.makeCursor(p.x, p.y, n < MIN_AGENTS, isLeader);
         c.follow = true;
         this.cursors.push(c);
       }
@@ -2212,20 +2345,25 @@
       this.ready = true;
     }
 
-    makeCursor(x, y, home = false) {
+    makeCursor(x, y, home = false, isLeader = false) {
       const id = this.nextId++;
       const fast = Math.random() < 0.25;
+      const bTheme = this.browserTheme || detectCurrentBrowser();
+      const cursorColor = isLeader ? bTheme.color : COLORS[id % COLORS.length];
+      const cursorName = isLeader ? bTheme.name : NAMES[id % NAMES.length];
       return {
-        id, x, y, home,
-        name: NAMES[id % NAMES.length],
-        color: COLORS[id % COLORS.length],
+        id, x, y, home: isLeader ? true : home,
+        isLeader,
+        scale: isLeader ? (bTheme.scale || 1.55) : 1,
+        name: cursorName,
+        color: cursorColor,
         shape: "arrow", press: 0, task: null, gen: null, ov: null,
         idleFor: 0, leaving: false, worked: false, sticky: false,
         vx: 0, vy: 0, angle: 0,
-        speed: fast ? rand(1000, 1500) : rand(300, 750),
+        speed: isLeader ? rand(800, 1400) : (fast ? rand(1000, 1500) : rand(300, 750)),
         force: fast ? rand(3500, 6000) : rand(700, 1800),
         spin: fast ? rand(2.2, 3.4) : rand(0.8, 1.8),
-        curl: rand(-1, 1), orbit: rand(70, 170), follow: false,
+        curl: rand(-1, 1), orbit: isLeader ? 90 : rand(70, 170), follow: false,
       };
     }
 
@@ -2457,7 +2595,7 @@
         if (c.angle !== 0) c.angle = Math.abs(c.angle) < 0.5 ? 0 : c.angle * (1 - Math.min(1, dt * 10));
         if (!c.task) {
           c.idleFor += dt;
-          if (!c.leaving && c.idleFor > 2.5 && this.cursors.filter((m) => !m.leaving).length > MIN_AGENTS && !c.home) {
+          if (!c.isLeader && !c.leaving && c.idleFor > 2.5 && this.cursors.filter((m) => !m.leaving).length > MIN_AGENTS && !c.home) {
             c.leaving = true;
             c.gen = this.leave(c);
           }
@@ -2468,6 +2606,9 @@
             c.task.state = "done";
             c.task.doneAt = this.time;
             this.doneCount++;
+            if (this.view && this.view.spawnSparks && Math.random() < 0.45) {
+              this.view.spawnSparks(c.x, c.y, c.color, 8);
+            }
             c.task = null;
             c.ov = null;
             if (c.sticky) {
@@ -3362,10 +3503,14 @@
 
     // ---- events (screen coords in; all plain numbers so a log can be replayed)
 
-    // one mechanical key: a sharp click on top of a short "thock" (deeper for space)
+    // one mechanical key: creamy lubed switch with deep thock and acoustic marble body (ASMR)
     clack(when, pan, space, vel = 1) {
-      this.tick(when, pan, rand(3600, 5600), 2.2, rand(0.2, 0.3) * vel, rand(0.006, 0.011));
-      this.tick(when + rand(0.001, 0.005), pan, space ? rand(380, 560) : rand(850, 1500), 1.6, (space ? 0.26 : rand(0.13, 0.2)) * vel, space ? 0.065 : rand(0.025, 0.042));
+      // Soft silky transient attack (2800-4200Hz)
+      this.tick(when, pan, rand(2800, 4200), 2.5, rand(0.18, 0.26) * vel, rand(0.005, 0.009));
+      // Deep creamy thock (240-520Hz wooden resonant body)
+      this.tick(when + rand(0.001, 0.004), pan, space ? rand(240, 420) : rand(340, 580), 2.1, (space ? 0.32 : rand(0.2, 0.28)) * vel, space ? 0.075 : rand(0.035, 0.055));
+      // Sub-harmonic warm acoustic thud (140-220Hz)
+      this.tick(when + rand(0.002, 0.005), pan, rand(140, 220), 1.5, rand(0.08, 0.14) * vel, 0.04);
     }
 
     key(x, vw, id, n = 1, space = 0) {
@@ -3700,10 +3845,11 @@
         if (a === "close") stop(false);
         else if (a === "live") stop(true);
         else if (a === "replay") restart();
+        else if (a === "record") this.toggleRecord();
         else if (a === "tour") {
           this.tour = !this.tour;
           b.classList.toggle("on", this.tour);
-          b.textContent = this.tour ? "Touring" : "Tour";
+          b.textContent = this.tour ? "Đang cuộn" : "Dạo quanh";
           if (this.tour) this.engine.start();
         } else if (a === "sound") {
           if (this.sfx.on && this.sfx.blocked) this.sfx.resume();
@@ -3734,8 +3880,8 @@
       b.classList.toggle("tap", tap);
       const waves = '<path d="M11 5.5a3.5 3.5 0 0 1 0 5M12.8 3.6a6 6 0 0 1 0 8.8"/>';
       const mute = '<path d="M11 6l4 4M15 6l-4 4"/>';
-      b.innerHTML = `${SPK_ICON}${key === "off" ? mute : waves}</svg>${tap ? "<span>Tap for sound</span>" : ""}`;
-      b.title = key === "off" ? "Sound off (M)" : "Sound on (M)";
+      b.innerHTML = `${SPK_ICON}${key === "off" ? mute : waves}</svg>${tap ? "<span>Chạm để bật âm</span>" : ""}`;
+      b.title = key === "off" ? "Đã tắt âm thanh (Phím M)" : "Âm thanh đang bật (Phím M)";
     }
 
     frame(now) {
@@ -3751,10 +3897,95 @@
           this.updateHud();
           this.renderSoundBtn();
         }
+        if (!this._banterT || now - this._banterT > 4200) {
+          this._banterT = now + rand(-600, 800);
+          this.triggerBanter();
+        }
       } catch (err) {
         console.error("[swarm-rebuild]", err);
       }
       this.raf = requestAnimationFrame((t) => this.frame(t));
+    }
+
+    triggerBanter() {
+      if (this.dead || this.complete || !this.engine) return;
+      const cursors = this.engine.cursors.filter((c) => !c.leaving);
+      if (!cursors.length) return;
+      const leader = cursors.find((c) => c.isLeader);
+      const c = (leader && Math.random() < 0.45) ? leader : cursors[Math.floor(Math.random() * cursors.length)];
+      const el = this.view.cursorEls.get(c.id);
+      if (!el || el.querySelector(".cursor-bubble")) return;
+      const list = [
+        "Sếp ơi banner này nét căng! ✨",
+        "Căn giữa div này mệt ghê... 😅",
+        "CSS chuẩn đét từng pixel! 📐",
+        "Chạy deadline cùng NMstudio! 🚀",
+        "Gõ phím cơ mỏi cả tay... ⌨️",
+        "Tiến độ mượt mà lắm sếp! ⚡",
+        "Leader Cốc Cốc đang dẫn đoàn! 🍏",
+        "Figma gọi bằng cụ luôn! 🎨",
+        "Responsive đỉnh nóc kịch trần! 📱",
+        "Xong task này làm cốc cà phê ☕"
+      ];
+      const text = list[Math.floor(Math.random() * list.length)];
+      const b = document.createElement("div");
+      b.className = "cursor-bubble";
+      b.textContent = text;
+      el.appendChild(b);
+      setTimeout(() => b.remove(), 2200);
+    }
+
+    async toggleRecord() {
+      const b = this.view.root.querySelector('[data-a="record"]');
+      if (this.recorder && this.recorder.state === "recording") {
+        this.recorder.stop();
+        return;
+      }
+      try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: { frameRate: 60 },
+          audio: false
+        });
+        const chunks = [];
+        const recorder = new MediaRecorder(stream, { mimeType: MediaRecorder.isTypeSupported("video/webm;codecs=vp9") ? "video/webm;codecs=vp9" : "video/webm" });
+        this.recorder = recorder;
+        recorder.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) chunks.push(e.data);
+        };
+        recorder.onstop = () => {
+          stream.getTracks().forEach((track) => track.stop());
+          if (chunks.length > 0) {
+            const blob = new Blob(chunks, { type: "video/webm" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `liverebuild-nmstudio-${Date.now()}.webm`;
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(url), 5000);
+          }
+          if (b) {
+            b.classList.remove("recording");
+            b.innerHTML = "🎥 Quay clip";
+            b.title = "Quay video màn hình chất lượng cao để đăng Reels / TikTok";
+          }
+          this.recorder = null;
+        };
+        stream.getVideoTracks().forEach((track) => {
+          track.onended = () => {
+            if (this.recorder && this.recorder.state === "recording") {
+              this.recorder.stop();
+            }
+          };
+        });
+        recorder.start();
+        if (b) {
+          b.classList.add("recording");
+          b.innerHTML = "⏺ Đang quay...";
+          b.title = "Bấm để dừng và tải video clip";
+        }
+      } catch (err) {
+        console.warn("[LiveRebuild] Record cancelled or not permitted", err);
+      }
     }
 
     tourStep(dt) {
@@ -3788,20 +4019,20 @@
       const total = E.tasks.length;
       const done = E.doneCount;
       if (this.complete) return;
-      if (!E.started) v.status.innerHTML = `<b>${E.cursors.length}</b> agents ready<span class="sep"></span>${total.toLocaleString()} layers`;
+      if (!E.started) v.status.innerHTML = `<b>${E.cursors.length}</b> con trỏ sẵn sàng<span class="sep"></span>${total.toLocaleString()} lớp giao diện`;
       else {
         const pend = E.tasks.length - done;
         const below = E.tasks.some((t) => t.state === "wait" && t.layer === "world" && t.gate > E.frontier);
         v.status.innerHTML =
-          `<b>${workers}</b> agents<span class="sep"></span><b>${done.toLocaleString()}</b> / ${total.toLocaleString()} layers` +
-          (below && pend && !this.tour && E.backlog() === 0 ? `<span class="sep"></span>scroll to keep building` : "");
+          `<b>${workers}</b> con trỏ<span class="sep"></span><b>${done.toLocaleString()}</b> / ${total.toLocaleString()} lớp` +
+          (below && pend && !this.tour && E.backlog() === 0 ? `<span class="sep"></span>cuộn trang để tiếp tục vẽ` : "");
       }
       v.barFill.style.width = total ? `${(done / total) * 100}%` : "0%";
       const busy = E.cursors.filter((c) => c.task).slice(-5);
       const key = busy.map((c) => c.id).join(",");
       if (key !== this._dots) {
         this._dots = key;
-        v.dots.innerHTML = busy.map((c) => `<i style="background:${c.color}" title="${c.name}">${c.name[0]}</i>`).join("");
+        v.dots.innerHTML = busy.map((c) => `<i style="background:${c.color}" title="${escapeHTML(c.name)}">${escapeHTML(c.name[0])}</i>`).join("");
       }
     }
 
@@ -3812,7 +4043,7 @@
       const v = this.view;
       const workers = E.cursors.filter((c) => c.worked).length + E.retired;
       const secs = (E.endTime - E.startTime).toFixed(1);
-      v.status.innerHTML = `Rebuilt by <b>${workers}</b> agents in <b>${secs}s</b>`;
+      v.status.innerHTML = `Tái lập hoàn tất bởi <b>${workers}</b> con trỏ trong <b>${secs}s</b>`;
       v.barFill.style.width = "100%";
       v.dots.innerHTML = "";
       v.root.querySelector('[data-a="live"]').hidden = false;
@@ -3820,9 +4051,33 @@
       v.root.querySelector('[data-a="tour"]').hidden = true;
       v.root.querySelector('[data-a="speed"]').hidden = true;
       this.tour = false;
+
+      // Grand Finale Signature & Confetti
+      if (v.grandFinale) {
+        v.grandFinale.innerHTML = `
+          <div class="fn-brand">⚡ NMstudio</div>
+          <div class="fn-sub">Kiến Tạo Hoàn Tất • Grand Finale</div>
+        `;
+        v.grandFinale.classList.add("on");
+        const cx = v.W / 2;
+        const cy = v.H / 2;
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => {
+            if (!this.dead && v.spawnSparks) {
+              v.spawnSparks(cx + rand(-80, 80), cy + rand(-40, 40), "#10b981", 12);
+            }
+          }, i * 180);
+        }
+        setTimeout(() => {
+          if (v.grandFinale) v.grandFinale.classList.remove("on");
+        }, 2600);
+      }
     }
 
     destroy(reveal) {
+      if (this.recorder && this.recorder.state === "recording") {
+        try { this.recorder.stop(); } catch (_) {}
+      }
       unhidePage();
       if (this.sfx) {
         if (reveal) this.sfx.release();
