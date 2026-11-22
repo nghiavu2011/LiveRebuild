@@ -3789,7 +3789,7 @@
       }
       const snapStyle = document.createElement("style");
       snapStyle.id = "__swarm_snap_override";
-      snapStyle.textContent = "*:not(swarm-rebuild):not(swarm-rebuild *) { animation: none !important; transition: none !important; }";
+      snapStyle.textContent = "*:not(swarm-rebuild):not(swarm-rebuild *) { animation-play-state: paused !important; transition-duration: 0s !important; }";
       document.head.appendChild(snapStyle);
       let model;
       try {
@@ -3857,17 +3857,24 @@
         } else if ((e.key === "m" || e.key === "M") && !e.metaKey && !e.ctrlKey && !e.altKey) {
           this.sfx.setOn(!this.sfx.on);
           this.renderSoundBtn();
+        } else if (this.model && this.model.docH <= this.env.geom().vh + 10 && this.engine && this.engine.done && ["ArrowDown", "PageDown", " ", "ArrowRight"].includes(e.key)) {
+          // Slide deck presentation: advance to live page on navigation key
+          stop(true);
         }
         this.unlockSound();
       }, true);
       // browsers only let audio start after a click/keypress on the page
       on(window, "pointerdown", () => this.unlockSound(), true);
-      if (!this.env.isRoot) {
-        on(this.view.host, "wheel", (e) => {
+      on(this.view.host, "wheel", (e) => {
+        if (!this.env.isRoot) {
           e.preventDefault();
           this.env.scroller.scrollBy({ top: e.deltaY, left: e.deltaX, behavior: "instant" });
-        }, { passive: false });
-      }
+        } else if (this.model && this.model.docH <= this.env.geom().vh + 10 && this.engine && this.engine.done && e.deltaY > 10) {
+          // Slide deck presentation: when user scrolls down after completion,
+          // smoothly reveal live page so user can navigate to subsequent slides!
+          stop(true);
+        }
+      }, { passive: false });
       on(this.view.hud, "click", (e) => {
         const b = e.target.closest("button");
         if (!b) return;
