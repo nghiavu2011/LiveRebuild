@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="media/NM.mp4">▶️ <b>Xem Clip Demo Tái Tạo Trang Chuẩn NMstudio (MP4)</b></a> · 
+  <a href="media/NM.mp4">▶️ <b>Xem Clip Demo Trực Tiếp (MP4 Full HD)</b></a> · 
   <a href="media/demo-with-sound.mp4">🔊 <b>Xem Video Có Âm Thanh Phím Cơ (60s)</b></a>
 </p>
 
@@ -24,10 +24,14 @@
 
 ## 🌟 Những Điểm Đột Phá Trên Bản LiveRebuild (NMstudio Edition)
 
-### 1. 🍏 Con Trỏ Chuột Leader Cốc Cốc Siêu To Bản
+### 1. 🚀 Con Trỏ Chuột Leader Đa Trình Duyệt Siêu To Bản
 - Con trỏ số 1 luôn đảm nhiệm vai trò **Leader Tổng Chỉ Huy** với kích thước mũi tên phóng to **$1.55\times$** (to nhất đàn).
-- Mang màu xanh lá thương hiệu Cốc Cốc (`#00b14f`) với vầng hào quang phát sáng `glow drop-shadow`.
-- Gắn kèm bảng tên phi hành đoàn phong cách Figma: **`Cốc Cốc Leader • NMstudio`**.
+- **Tự động nhận diện trình duyệt đang chạy**:
+  - Trên **Google Chrome**: Bảng tên `Chrome Leader • NMstudio` viền xanh dương
+  - Trên **Cốc Cốc**: Bảng tên `Cốc Cốc Leader • NMstudio` với sắc xanh lá thương hiệu (`#00b14f`)
+  - Trên **Microsoft Edge**: Bảng tên `Edge Leader • NMstudio` viền xanh ngọc
+  - Trên **Brave / Opera / Firefox**: Bảng tên `Universal Leader • NMstudio`
+- Mang vầng hào quang phát sáng `glow drop-shadow` phong cách Figma Multiplayer.
 - Không bao giờ bị biến mất (chống idle leave), luôn dẫn dắt phi hành đoàn thi công từ đầu tới cuối.
 
 ### 2. 🎧 Âm Thanh Phím Cơ "Creamy Thock" (ASMR)
@@ -43,7 +47,7 @@
   - *"Căn giữa div này mệt ghê... 😅"*
   - *"CSS chuẩn đét từng pixel! 📐"*
   - *"Chạy deadline cùng NMstudio! 🚀"*
-  - *"Leader Cốc Cốc đang dẫn đoàn! 🍏"*
+  - *"Leader phi hành đoàn đang dẫn đoàn! ⚡"*
 
 ### 5. 🎥 Nút 1-Click Quay Clip TikTok / Reels (`🎥 Quay clip`)
 - Tích hợp trực tiếp trên thanh điều khiển HUD dưới đáy màn hình.
@@ -58,45 +62,54 @@
 - Toàn bộ thanh HUD, thanh tiến độ và tooltip đều được Việt hóa chuẩn mực:
   `Dạo quanh (Tour)`, `Tốc độ (1×, 2×, 3×)`, `Âm thanh (M)`, `Quay clip`, `Trở lại trang`, `Tái lập lại`.
 
-### 8. 🛡️ Bảo Mật Tuyệt Đối & Lọc Rác DOM Cốc Cốc
+### 8. 🛡️ Bảo Mật Tuyệt Đối & Lọc Rác DOM
 - **100% Offline**: 0 kết nối mạng, 0 theo dõi, 0 thu thập dữ liệu cá nhân.
-- Tự động bỏ qua các overlay và thanh tải video của Cốc Cốc (`coccoc-video-downloader`, `coccoc-sidebar`, `coccoc-download-bar`) để đàn chuột không vẽ nhầm giao diện trình duyệt.
+- Tự động lọc bỏ các overlay và tiện ích ngoài trình duyệt để đàn chuột không vẽ nhầm giao diện hệ thống.
 
 ---
 
-## 🚀 Hướng Dẫn Cài Đặt Chi Tiết
+## 🚀 Hướng Dẫn Cài Đặt Chi Tiết (Chỉ 1 Phút)
 
-### Bước 1: Tải mã nguồn
-Clone repo này về máy của bạn:
+### 📥 Cách 1: Tải file nén ZIP trực tiếp từ GitHub (Dễ nhất cho mọi người)
+
+1. Bấm vào nút xanh **`<> Code`** ở đầu trang repo này $\rightarrow$ Chọn **`Download ZIP`** (hoặc [tải tại đây](https://github.com/nghiavu2011/LiveRebuild/archive/refs/heads/main.zip)).
+2. Chuột phải vào file vừa tải về $\rightarrow$ Chọn **Extract All (Giải nén)** ra một thư mục trên máy bạn.
+3. Mở trình duyệt và truy cập trang quản lý Tiện ích:
+   * **Cốc Cốc**: `coccoc://extensions`
+   * **Google Chrome**: `chrome://extensions`
+   * **Microsoft Edge**: `edge://extensions`
+   * **Brave**: `brave://extensions`
+   * **Opera**: `opera://extensions`
+4. Bật công tắc **"Chế độ dành cho nhà phát triển" (Developer mode)** ở góc trên bên phải màn hình:
+   ```text
+   ┌────────────────────────────────────────────────────────────────────────┐
+   │ Tiện ích / Extensions             [Chế độ dành cho nhà phát triển: ON] │
+   │ ┌──────────────────────────────┐                                       │
+   │ │ [Tải tiện ích đã giải nén]   │                                       │
+   │ │ (Load unpacked)              │                                       │
+   │ └──────────────────────────────┘                                       │
+   └────────────────────────────────────────────────────────────────────────┘
+   ```
+5. Bấm nút **"Tải tiện ích đã giải nén" (Load unpacked)** ở góc trên bên trái $\rightarrow$ Chọn thư mục `src` bên trong thư mục vừa giải nén!
+
+---
+
+### 💻 Cách 2: Dành cho lập trình viên (Git Clone)
+
 ```bash
+# 1. Clone repository
 git clone https://github.com/nghiavu2011/LiveRebuild.git
+cd LiveRebuild
+
+# 2. Mở trình duyệt và chọn Load Unpacked vào thư mục "src" (hoặc thư mục "dist/chrome-extension")
 ```
 
-### Bước 2: Cài đặt vào Trình Duyệt
+---
 
-#### 🍏 1. Dành cho Trình duyệt Cốc Cốc
-1. Mở Cốc Cốc và truy cập: `coccoc://extensions`
-2. Bật công tắc **"Chế độ dành cho nhà phát triển"** (ở góc trên cùng bên phải).
-3. Nhấp vào nút **"Tải tiện ích đã giải nén"** (*Load unpacked*).
-4. Chọn thư mục:
-   ```text
-   LiveRebuild/dist/coccoc-extension
-   ```
-5. Mở bất kỳ trang web nào (ví dụ: [vnexpress.net](https://vnexpress.net) hoặc file test [demo/index.html](demo/index.html)), nhấn **`Alt + Shift + S`** (hoặc bấm vào icon mảnh ghép trên thanh công cụ) để trải nghiệm!
-
-#### 🔵 2. Dành cho Google Chrome / Microsoft Edge / Brave / Opera
-1. Mở trang quản lý tiện ích:
-   - Chrome: `chrome://extensions`
-   - Edge: `edge://extensions`
-   - Brave: `brave://extensions`
-   - Opera: `opera://extensions`
-2. Bật **Developer Mode** $\rightarrow$ Chọn **Load unpacked**.
-3. Chọn thư mục tương ứng trong thư mục `dist/` (ví dụ: `dist/chrome-extension` hoặc `dist/edge-extension`).
-
-#### 🦊 3. Dành cho Mozilla Firefox
+### 🌐 Cách cài trên Mozilla Firefox
 1. Mở Firefox và truy cập: `about:debugging#/runtime/this-firefox`
-2. Bấm nút **"Load Temporary Add-on..."**
-3. Chọn file `dist/liverebuild-firefox-nmstudio.zip` (hoặc `dist/firefox-extension/manifest.json`).
+2. Nhấp vào nút **"Load Temporary Add-on..."**
+3. Chọn file `src/manifest.json`.
 
 ---
 
