@@ -416,13 +416,42 @@
     for (let i = 0; i < a.length && i < b.length; i++) prepClone(a[i], b[i]);
   }
 
+  function parseSrcset(val) {
+    if (!val) return "";
+    const candidates = val.split(",").map((s) => s.trim()).filter(Boolean);
+    if (!candidates.length) return "";
+    const last = candidates[candidates.length - 1];
+    const url = last.split(/\s+/)[0];
+    try {
+      return new URL(url, location.href).href;
+    } catch (_) {
+      return url;
+    }
+  }
+
   function imgSrc(img) {
     let s = img.currentSrc || img.src || "";
-    const lazy = img.getAttribute("data-src") || img.getAttribute("data-lazy-src") || img.getAttribute("data-original");
-    if (lazy && (!s || s.startsWith("data:") || !img.complete || !img.naturalWidth)) {
-      try {
-        s = new URL(lazy, location.href).href;
-      } catch (_) {}
+    const isPlaceholder = !s || (s.startsWith("data:") && s.length < 500) || (!img.complete && !img.naturalWidth);
+    if (isPlaceholder || s.startsWith("data:")) {
+      const srcset = img.getAttribute("srcset") || img.getAttribute("data-srcset");
+      const fromSrcset = parseSrcset(srcset);
+      if (fromSrcset) return fromSrcset;
+
+      const lazy =
+        img.getAttribute("data-src") ||
+        img.getAttribute("data-lazy-src") ||
+        img.getAttribute("data-original") ||
+        img.getAttribute("data-url") ||
+        img.getAttribute("data-high-res-src") ||
+        img.getAttribute("data-full-src") ||
+        img.getAttribute("data-fallback-src");
+      if (lazy) {
+        try {
+          return new URL(lazy, location.href).href;
+        } catch (_) {
+          return lazy;
+        }
+      }
     }
     return s;
   }
@@ -1151,6 +1180,7 @@
       const pe = el.parentElement;
       const flexItem = pos === "static" && pe && /flex|grid/.test(css(pe).display);
       const zIndexVal = cs.zIndex !== "auto" ? parseInt(cs.zIndex, 10) : null;
+      if (pos !== "static") posd = true;
 
       if (pos === "fixed" && layer !== "over") {
         // a negative z-index (at the root stacking context) paints behind the page, e.g. full-screen WebGL backdrops
@@ -1187,7 +1217,7 @@
         const base = ctx.stackingCtx.baseKey;
         if (zIndexVal !== null && zIndexVal < 0) {
           keyFn = () => base + 100000 + zIndexVal * 1000 + order++;
-        } else if (pos !== "static" || flexItem) {
+        } else if (pos !== "static" || flexItem || posd) {
           keyFn = () => base + 300000 + (zIndexVal || 0) * 1000 + order++;
         } else {
           keyFn = () => base + 200000 + order++;
@@ -1206,7 +1236,7 @@
         const selfBase = ctx.stackingCtx
           ? (zIndexVal !== null && zIndexVal < 0
               ? ctx.stackingCtx.baseKey + 100000 + zIndexVal * 1000
-              : pos !== "static" || flexItem
+              : pos !== "static" || flexItem || posd
                 ? ctx.stackingCtx.baseKey + 300000 + (zIndexVal || 0) * 1000
                 : ctx.stackingCtx.baseKey + 200000)
           : (zTop || 0) * 1e7 + (posd ? 5e6 : 0);
